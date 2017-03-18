@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import cityActions from '../cityAction';
+// import cityActions from '../cityAction';
 
 class CityList extends Component {
     render() {
         console.log('CityList', this.props.cities);
         return (
-            <ul>
+            <ul className='column'>
                 {this.props.cities.map(this.createCityRow, this)}
             </ul>
         );
@@ -13,31 +13,29 @@ class CityList extends Component {
 
     createCityRow(city) {
         console.log('createCityRow', city);
+
         return (
             <li key={city.id} className='city'>
-                <div className='nine columns'>
-                    <div>
+                <div className='city-block'>
+                    <img src={'http://openweathermap.org/img/w/' + city.weather[0].icon + '.png'} alt={city.weather[0].description} />
+                    <div className='city-block-description'>
                         <strong> {city.name} </strong>
-                        <span className=''>
-                            {city.weather.description}
-                        </span>
                         <ul>
+                            <li>{city.weather[0].description}</li>
                             <li>temp: {this._convertToCelsius(city.main.temp)} C</li>
                             <li>pressure: {city.main.pressure}</li>
                             <li>humidity: {city.main.humidity}</li>
                         </ul>
                     </div>
                 </div>
-                <div className='three columns delete-city'>
-                    <a href="#" onClick={this.deleteCity.bind(this, city)}>Delete</a>
-                </div>
+                <a href="#" onClick={this.deleteCity.bind(this, city)}>Delete</a>
             </li>
         );
     }
 
     deleteCity(city, event) {
         event.preventDefault();
-        cityActions.deleteCity(city);
+        console.log(city);
     }
 
     _convertToCelsius(degK) {
