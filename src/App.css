@@ -21,3 +21,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.city {
+	border: 1px solid #000;
+}
+
+ul {
+	list-style: none;
+}
+

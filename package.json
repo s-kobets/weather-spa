@@ -1,5 +1,5 @@
 {
-  "name": "my-app",  
+  "name": "my-app",
   "version": "0.1.0",
   "private": true,
   "repository": {
@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "react-scripts": "0.9.5",
+    "redux": "^3.6.0",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {

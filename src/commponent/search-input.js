@@ -13,8 +13,7 @@ class CityInput extends Component {
 
     render() {
         return (
-            <form className='row city-input' onSubmit={this.handleSubmit}>
-                <p>{this.state.value}</p>
+            <form className='row city-input'>
                 <input
                     className='u-full-width'
                     type='text'
@@ -24,7 +23,8 @@ class CityInput extends Component {
                     onChange={this.handleChange}/>
                 <button
                     className='button button-primary'
-                    type='submit'>
+                    type='submit'
+                    onClick={this.handleSubmit}>
                     Add city
                 </button>
             </form>
@@ -39,7 +39,7 @@ class CityInput extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.value);
+        this.props.onClick(this.state.value);
         this.setState({
             value: ''
         });
