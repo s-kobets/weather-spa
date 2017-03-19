@@ -22,6 +22,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.location(this.state.defaultCities);
     cityStore.subscribe(() => this.forceUpdate());
   }
 
@@ -40,62 +41,16 @@ class App extends Component {
   }
 
   getRequest(url) {
-    this.setState({ 
-      num: this.state.num + 1
-    });
-//     var data1 = {
-//   "weather": [
-//     {
-//       "id": 802,
-//       "main": "Clouds",
-//       "description": "scattered clouds",
-//       "icon": "03d"
-//     }
-//   ],
-//   "base": "stations",
-//   "main": {
-//     "temp": 279.15,
-//     "pressure": 1003,
-//     "humidity": 56,
-//     "temp_min": 279.15,
-//     "temp_max": 279.15
-//   },
-//   "visibility": 10000,
-//   "wind": {
-//     "speed": 5,
-//     "deg": 150
-//   },
-//   "clouds": {
-//     "all": 40
-//   },
-//   "dt": 1489847400,
-//   "sys": {
-//     "type": 1,
-//     "id": 7323,
-//     "message": 0.5237,
-//     "country": "RU",
-//     "sunrise": 1489808119,
-//     "sunset": 1489851631
-//   },
-//   "id": 524901,
-//   "name": "123Moscow",
-//   "cod": 200
-// };
     api.get(url)
       .then(data => {
           this.increment(data);
-          // no redux
-          // this.setState({ 
-          //   cities: this.state.cities.concat([data])
-          // });
+      })
+      .catch(err => {
+        alert(err.message);
       });
-    // data1.id += this.state.num;
-
-    console.log('getRequest', this.state.cities, this.state.num);
   }
 
   addCity(cityName) {
-    // cityActions.addCity(cityName);
     // Get the data from the cache if possible
     if (cityName.length !== 0) {
         // Request new data to the API
@@ -130,7 +85,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <CityInput onClick={this.addCity} />
-        <CityList cities={cities} onClick={this.decrement} onLoad={this.location(this.state.defaultCities)}/>
+        <CityList cities={cities} onClick={this.decrement}/>
       </div>
     );
   }

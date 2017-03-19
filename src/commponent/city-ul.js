@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class CityList extends Component {
     render() {
-        console.log('CityList', this.props.cities);
+        // console.log('CityList', this.props.cities);
         return (
             <ul className='column'>
                 {this.props.cities.map(this.createCityRow, this)}
@@ -11,7 +11,7 @@ class CityList extends Component {
     }
 
     createCityRow(city) {
-        console.log('createCityRow', city);
+        // console.log('createCityRow', city);
 
         return (
             <li key={city.id} className='city'>
@@ -35,7 +35,7 @@ class CityList extends Component {
 
     deleteCity(city, event) {
         event.preventDefault();
-        console.log(city);
+        // console.log(city);
         this.props.onClick(city);
     }
     
