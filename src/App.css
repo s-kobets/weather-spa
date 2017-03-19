@@ -22,6 +22,27 @@
   to { transform: rotate(360deg); }
 }
 
+a {
+  cursor: pointer;
+}
+
+.city-input {
+  display: flex;
+  margin: 0 auto;
+  width: 30%;
+}
+
+.city-input input {
+  font-size: 18px;
+  flex-grow: 1;
+}
+
+.city-input button {
+  font-size: 18px;
+  padding: 5px;
+  cursor: pointer;
+}
+
 .city {
   position: relative;
   display: inline-flex;
@@ -43,9 +64,16 @@
   height: 50px;
 }
 
-.city-block-description {
+.city-block__description {
   padding: 0 40px;
   text-align: left;
+}
+
+.city-block__delete {
+  font-size: 30px;
+  text-decoration: none;
+  align-self: flex-start;
+  margin-right: 10px;
 }
 
 .column {

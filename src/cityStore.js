@@ -1,13 +1,18 @@
-import actionTypes from './actionTypes';
-import Store from './store';
+import {createStore} from 'redux';
 
-//Extend general store and bind actions with store methods.
-const CityStore = Store.extend({
-    init: function () {
-        this.bind(actionTypes.GOT_CITIES, this.set);
-        this.bind(actionTypes.ADDED_CITY, this.set);
-        this.bind(actionTypes.DELETED_CITY, this.remove);
-    }
-});
+const initialState = { cities: [] };
 
-export default CityStore;
+function reducer(state = { cities: [] }, action) {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { cities: state.cities.concat(action.amount) }
+    case 'DECREMENT':
+      return { cities: state.cities.filter(city => {
+        return city.id !== action.amount.id;
+      }) }     
+    default:
+      return state;
+  }
+}
+
+export default createStore(reducer, initialState);

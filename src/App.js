@@ -5,27 +5,38 @@ import './App.css';
 import CityInput from './commponent/search-input';
 import CityList from './commponent/city-ul';
 import api from './api';
-// import cityStore from './cityStore';
-// import cityActions from './cityAction';
+import cityStore from './cityStore';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        cities: [],
         defaultCities: true,
         num: 0
     };
 
     this.addCity = this.addCity.bind(this);
     this.location = this.location.bind(this);
+    this.increment = this.increment.bind(this);
+    this.decrement = this.decrement.bind(this);
   }
 
-  counter() {
-    var num = 0;
-    return function() {
-      return num += 1;
-    }
+  componentDidMount() {
+    cityStore.subscribe(() => this.forceUpdate());
+  }
+
+  increment(data) {
+    cityStore.dispatch({
+      type: 'INCREMENT',
+      amount: data
+    });
+  }
+
+  decrement(data) {
+      cityStore.dispatch({
+        type: 'DECREMENT',
+        amount: data
+      });
   }
 
   getRequest(url) {
@@ -72,14 +83,14 @@ class App extends Component {
 // };
     api.get(url)
       .then(data => {
-          this.setState({ 
-            cities: this.state.cities.concat([data])
-          });
+          this.increment(data);
+          // no redux
+          // this.setState({ 
+          //   cities: this.state.cities.concat([data])
+          // });
       });
     // data1.id += this.state.num;
-    // this.setState({ 
-    //   cities: this.state.cities.concat(data1)
-    // });
+
     console.log('getRequest', this.state.cities, this.state.num);
   }
 
@@ -109,6 +120,7 @@ class App extends Component {
   }
 
   render() {
+    const cities = cityStore.getState().cities;
     return (
       <div className="App">
         <div className="App-header">
@@ -118,7 +130,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <CityInput onClick={this.addCity} />
-        <CityList cities={this.state.cities} onLoad={this.location(this.state.defaultCities)}/>
+        <CityList cities={cities} onClick={this.decrement} onLoad={this.location(this.state.defaultCities)}/>
       </div>
     );
   }
