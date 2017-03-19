@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 const rootUrl = 'http://api.openweathermap.org/data/2.5/weather';
 const apiUrl = '&appid=13bb07540b37ac984d9c9bd027c20637';
 
