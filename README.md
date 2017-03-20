@@ -1,3 +1,5 @@
+Due Mixed Content the project is deployed: http://test.s-kobets.com/weacher-spa/
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
