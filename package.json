@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages-deploy"
+    "deploy": "gh-pages-deploy -d build"
   },
   "homepage": "https://s-kobets.github.io/weacher-spa",
   "gh-pages-deploy": {

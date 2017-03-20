@@ -10,10 +10,6 @@ import cityStore from './cityStore';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        defaultCities: true,
-        num: 0
-    };
 
     this.addCity = this.addCity.bind(this);
     this.location = this.location.bind(this);
@@ -22,7 +18,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.location(this.state.defaultCities);
+    this.location();
     cityStore.subscribe(() => this.forceUpdate());
   }
 
@@ -58,19 +54,14 @@ class App extends Component {
     }
   }
 
-  location(flag) {
-    if (flag) {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(position => {
-              // Текущие координаты.
-              const lat = position.coords.latitude;
-              const log = position.coords.longitude;
-              this.getRequest(`?lat=${lat}&lon=${log}`);
-          });
-      }
-      this.setState({ 
-        defaultCities: !this.state.defaultCities
-      });
+  location() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            // Текущие координаты.
+            const lat = position.coords.latitude;
+            const log = position.coords.longitude;
+            this.getRequest(`?lat=${lat}&lon=${log}`);
+        });
     }
   }
 
