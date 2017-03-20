@@ -30,6 +30,7 @@ a {
   display: flex;
   margin: 0 auto;
   width: 30%;
+  box-sizing: border-box;
 }
 
 .city-input input {
@@ -51,6 +52,24 @@ a {
   margin-top: 10px;
   width: 30%;
   border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 992px) {
+  .city,
+  .city-input {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .App {
+    padding: 0 10px;
+  }
+  .city,
+  .city-input {
+    width: 100%;
+  }
 }
 
 .city-block {
