@@ -1,6 +1,7 @@
 import {createStore} from 'redux';
+import { loadState, saveState } from './localStorage';
 
-const initialState = { cities: [] };
+const persistedState = loadState();
 
 function reducer(state = { cities: [] }, action) {
   switch (action.type) {
@@ -15,4 +16,9 @@ function reducer(state = { cities: [] }, action) {
   }
 }
 
-export default createStore(reducer, initialState);
+const cityStore = createStore(reducer, persistedState);
+cityStore.subscribe(() => {
+  saveState(cityStore.getState());
+});
+
+export default cityStore;
