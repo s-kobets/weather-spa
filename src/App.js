@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 
-import CityInput from './commponent/search-input';
-import CityList from './commponent/city-ul';
+import CityInput from './component/search-input';
+import CityList from './component/city-ul';
 import api from './api';
 import cityStore from './cityStore';
 
@@ -19,19 +20,19 @@ class App extends Component {
 
   componentDidMount() {
     this.location();
-    cityStore.subscribe(() => this.forceUpdate());
+    // cityStore.subscribe(() => this.forceUpdate());
   }
 
   increment(data) {
     cityStore.dispatch({
-      type: 'INCREMENT',
+      type: 'ADD_CITY',
       amount: data
     });
   }
 
   decrement(data) {
       cityStore.dispatch({
-        type: 'DECREMENT',
+        type: 'REMOVE_CITY',
         amount: data
       });
   }
@@ -66,18 +67,20 @@ class App extends Component {
   }
 
   render() {
-    const cities = cityStore.getState().cities;
+    // const cities = cityStore.getState().cities;
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+      <Provider store={cityStore}>
+        <div className="App">
+          <div className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+          </div>
+          <p className="App-intro">
+            To get started, edit <code>src/App.js</code> and save to reload.
+          </p>
+          <CityInput onClick={this.addCity} />
+          <CityList onClick={this.decrement}/>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <CityInput onClick={this.addCity} />
-        <CityList cities={cities} onClick={this.decrement}/>
-      </div>
+      </Provider>
     );
   }
 }

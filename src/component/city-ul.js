@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class CityList extends Component {
   render() {
     // console.log('CityList', this.props.cities);
     return (
       <ul className='column'>
-        {this.props.cities.map(this.createCityRow, this)}
+        {this.props.citiesStore.cities.map(this.createCityRow, this)}
       </ul>
     );
   }
@@ -47,4 +48,9 @@ class CityList extends Component {
   }
 }
 
-export default CityList;
+export default connect(
+  state => ({
+    citiesStore: state
+  }),
+  dispatch => ({})
+)(CityList);
