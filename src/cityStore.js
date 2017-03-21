@@ -9,7 +9,7 @@ function reducer(state = { cities: [] }, action) {
     case 'DECREMENT':
       return { cities: state.cities.filter(city => {
         return city.id !== action.amount.id;
-      }) }     
+      })}
     default:
       return state;
   }
