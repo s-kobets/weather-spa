@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 class CityInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: ''
-    };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -17,10 +13,8 @@ class CityInput extends Component {
         <input
           className='u-full-width'
           type='text'
-          name="city"
-          placeholder='Enter city name'
-          value={this.state.value}
-          onChange={this.handleChange}/>
+          ref="city"
+          placeholder='Enter city name'/>
         <button
           className='button button-primary'
           type='submit'
@@ -31,18 +25,10 @@ class CityInput extends Component {
     );
   }
 
-  handleChange(event) {
-    this.setState({
-      value: event.target.value
-    });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onClick(this.state.value);
-    this.setState({
-      value: ''
-    });
+    this.props.onClick(this.refs.city.value);
+    this.refs.city.value = '';
   }
 }
 
