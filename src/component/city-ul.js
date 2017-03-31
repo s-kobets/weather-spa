@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class CityList extends Component {
+class CityList extends Component { 
   render() {
     // console.log('CityList', this.props.cities);
     return (
@@ -46,6 +46,10 @@ class CityList extends Component {
   _convertToCelsius(degK) {
     return Math.round(degK - 273.15);
   }
+}
+
+CityList.propTypes = {
+  citiesStore: React.PropTypes.object
 }
 
 export default connect(
