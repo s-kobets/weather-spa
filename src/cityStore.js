@@ -16,7 +16,7 @@ function reducer(state = { cities: [] }, action) {
   }
 }
 
-const cityStore = createStore(reducer, persistedState);
+const cityStore = createStore(reducer, persistedState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 cityStore.subscribe(() => {
   saveState(cityStore.getState());
 });
