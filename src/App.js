@@ -19,7 +19,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.location();
+    if (localStorage.getItem('cities')) {
+      if (JSON.parse(localStorage.getItem('cities')).cities.length === 0) {
+        this.location();
+      }
+    }
     // cityStore.subscribe(() => this.forceUpdate());
   }
 
