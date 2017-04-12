@@ -12,7 +12,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.addCity = this.addCity.bind(this);
     this.location = this.location.bind(this);
     this.increment = this.increment.bind(this);
     this.decrement = this.decrement.bind(this);
@@ -51,14 +50,6 @@ class App extends Component {
       });
   }
 
-  addCity(cityName) {
-    // Get the data from the cache if possible
-    if (cityName.length !== 0) {
-        // Request new data to the API
-        this.getRequest(`?q=${cityName}`);
-    }
-  }
-
   location() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -81,7 +72,7 @@ class App extends Component {
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
-          <CityInput onClick={this.addCity} />
+          <CityInput />
           <CityList onClick={this.decrement}/>
         </div>
       </Provider>
