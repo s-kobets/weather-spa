@@ -15,7 +15,7 @@ class CityInput extends Component {
         <input
           className='u-full-width'
           type='text'
-          ref="city"
+          ref={(input) => this.cityInput = input}
           placeholder='Enter city name'/>
         <button
           className='button button-primary'
@@ -29,8 +29,8 @@ class CityInput extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.addCity(this.refs.city.value);
-    this.refs.city.value = '';
+    this.props.addCity(this.cityInput.value);
+    this.cityInput.value = '';
   }
 }
 
