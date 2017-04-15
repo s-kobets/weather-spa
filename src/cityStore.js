@@ -1,11 +1,11 @@
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { loadState, saveState } from './localStorage';
 
 const persistedState = loadState();
 
-function reducer(state = { cities: [] }, action) {
+function cities(state = { cities: [] }, action) {
   switch (action.type) {
     case 'ADD_CITY':
       return { cities: state.cities.concat(action.amount) }
@@ -18,10 +18,24 @@ function reducer(state = { cities: [] }, action) {
   }
 }
 
-const cityStore = createStore(reducer, persistedState, composeWithDevTools(applyMiddleware(thunk)));
+function list(state = { list: [] }, action) {
+  switch (action.type) {
+    case 'ADD_LIST':
+      return { list: state.list.concat(action.amount) }
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  cities,
+  list
+});
+
+const cityStore = createStore(rootReducer, persistedState, composeWithDevTools(applyMiddleware(thunk)));
 
 cityStore.subscribe(() => {
   saveState(cityStore.getState());
 });
 
-export default cityStore;
+export default cityStore

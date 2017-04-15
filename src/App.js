@@ -15,6 +15,7 @@ class App extends Component {
     this.location = this.location.bind(this);
     this.increment = this.increment.bind(this);
     this.decrement = this.decrement.bind(this);
+    this.incrementList = this.incrementList.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +25,13 @@ class App extends Component {
       }
     }
     // cityStore.subscribe(() => this.forceUpdate());
+  }
+
+  incrementList(data) {
+    cityStore.dispatch({
+      type: 'ADD_LIST',
+      amount: data
+    });
   }
 
   increment(data) {
@@ -73,7 +81,7 @@ class App extends Component {
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
           <CityInput />
-          <CityList onClick={this.decrement}/>
+          <CityList onClick={this.decrement} onCheck={this.incrementList}/>
         </div>
       </Provider>
     );

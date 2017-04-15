@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+// import CityForecast from './city-forecast.js'
+import api from '../api';
 
-class CityList extends Component { 
+class CityList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.forecast = this.forecast.bind(this);
+  }
+
+  getRequest(url) {
+    api.get(url)
+      .then(data => {
+        this.props.onCheck(data)
+      })
+      .catch(err => {
+        alert(err.message);
+      });
+  }
+
   render() {
     // console.log('CityList', this.props.cities);
     return (
@@ -30,8 +49,15 @@ class CityList extends Component {
           </div>
         </div>
         <a href='#' onClick={this.deleteCity.bind(this, city)} className='city-block__delete' title='delete'>&#215;</a>
+        <a href='#' onClick={this.forecast.bind(this, city)} className='city-block__forecast' title='forecast'>forecast</a>
       </li>
     );
+  }
+
+  forecast(city, event) {
+    event.preventDefault();
+    console.log(city);
+    this.getRequest('asdasdasdasd');
   }
 
   deleteCity(city, event) {
@@ -49,7 +75,7 @@ class CityList extends Component {
 }
 
 CityList.propTypes = {
-  citiesStore: React.PropTypes.object
+  citiesStore: PropTypes.object
 }
 
 export default connect(
