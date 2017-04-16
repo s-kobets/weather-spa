@@ -44,7 +44,7 @@ const mapDispatchToProps = (dispatch) => {
       // Get the data from the cache if possible
       if (cityName.length !== 0) {
           // Request new data to the API
-          api.get(`?q=${cityName}`)
+          api.get('weather', `?q=${cityName}`)
             .then(data => {
                 dispatch({
                   type: 'ADD_CITY',
@@ -52,6 +52,7 @@ const mapDispatchToProps = (dispatch) => {
                 });
             })
             .catch(err => {
+              console.log(err);
               alert(err.message);
             });
       }

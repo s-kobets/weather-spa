@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   getRequest(url) {
-    api.get(url)
+    api.get('weather', url)
       .then(data => {
           this.increment(data);
       })

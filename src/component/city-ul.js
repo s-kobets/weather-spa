@@ -12,7 +12,7 @@ class CityList extends Component {
   }
 
   getRequest(url) {
-    api.get(url)
+    api.get('forecast', url)
       .then(data => {
         this.props.onCheck(data)
       })
@@ -57,7 +57,7 @@ class CityList extends Component {
   forecast(city, event) {
     event.preventDefault();
     console.log(city);
-    this.getRequest('asdasdasdasd');
+    // this.getRequest();
   }
 
   deleteCity(city, event) {
