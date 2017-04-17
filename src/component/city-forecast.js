@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { convertToCelsius } from '../utils'
 
 class CityForecast extends Component {
   render() {
-    console.log('list', this.props.citiesStore);
+    console.log('list', this.props.citiesStore.list);
     return (
-      <ul className='column'>
-        // {this.props.citiesStore.list.map(this.createCityRow, this)}
-      </ul>
+      <div className='column'>
+        {this.props.citiesStore.list.map(this.createCityRow, this)}
+      </div>
     );
   }
 
-  createCityRow(city) {
-    // console.log('createCityRow', city);
+  createCityRow(city, index) {
+    const list = city.list.splice(0,4);
+    console.log('createCityRow', list);
+
+    const template = list.map((indication) => {
+      return (
+        <div className='city_indication'>
+          <p>{indication.dt_txt}</p>
+          <p>{convertToCelsius(indication.main.temp)} &#186;C</p>
+          <p>wind speed: {indication.wind.speed} meter/sec</p>
+        </div>
+      );
+    });
 
     return (
-      <li key={city.id} className='city_forecast'>
-      </li>
+      <div key={index} className='city_forecast'>
+        {template}
+      </div>
     );
   }
 

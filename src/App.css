@@ -49,8 +49,10 @@ a {
   display: inline-flex;
   align-items: center;
   flex: 0;
+  flex-direction: column;
+  min-width: 30%;
+  width: 100%;
   margin-top: 10px;
-  width: 30%;
   border: 1px solid #000;
   box-sizing: border-box;
 }
@@ -89,6 +91,9 @@ a {
 }
 
 .city-block__delete {
+  position: absolute;
+  right: 0;
+  top: 0;
   font-size: 30px;
   text-decoration: none;
   align-self: flex-start;
@@ -101,9 +106,22 @@ a {
   align-items: center;
 }
 
+.column > li {
+  min-width: 30%;
+}
+
 ul {
   padding: 0;
   margin: 0 auto;
 	list-style: none;
+}
+
+.city_forecast {
+  width: 100%;
+  display: flex;
+}
+
+.city_indication {
+  width: 33.3%;
 }
 

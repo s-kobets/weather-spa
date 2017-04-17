@@ -2,13 +2,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { loadState, saveState } from './localStorage';
-import { createLogger } from 'redux-logger'
+import logger from 'redux-logger'
 
-const logger = createLogger({
-  // ...options
-});
-
-const middleware = [ logger, thunk ]
+const middleware = applyMiddleware(logger, thunk);
 const persistedState = loadState();
 
 function cities(state = [], action) {
@@ -28,6 +24,11 @@ function list(state = [], action) {
   switch (action.type) {
     case 'ADD_LIST':
       return [...state, action.amount]
+    case 'REMOVE_LIST':
+      return state.filter(city => {
+        console.log('REMOVE_LIST', city.city.id, action.amount.id)
+        return city.city.id !== action.amount.id;
+      })
     default:
       return state;
   }
@@ -38,7 +39,7 @@ const rootReducer = combineReducers({
   list
 });
 
-const cityStore = createStore(rootReducer, persistedState, composeWithDevTools(applyMiddleware(...middleware)));
+const cityStore = createStore(rootReducer, persistedState, composeWithDevTools(middleware));
 
 cityStore.subscribe(() => {
   saveState(cityStore.getState());
