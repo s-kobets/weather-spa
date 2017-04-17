@@ -13,24 +13,30 @@ class CityForecast extends Component {
   }
 
   createCityRow(city, index) {
-    const list = city.list.splice(0,4);
-    console.log('createCityRow', list);
+    console.log('createCityRow', city);
+    if (city.active) {
+      const list = city.list.splice(0,4);
+      console.log('createCityRow', city, list);
 
-    const template = list.map((indication) => {
+      const template = list.map((indication) => {
+            return ( 
+              <div
+                key={indication.dt_txt}
+                className='city_indication'
+              >
+                <p>{indication.dt_txt}</p>
+                <p>{convertToCelsius(indication.main.temp)} &#186;C</p>
+                <p>wind speed: {indication.wind.speed} meter/sec</p>
+              </div>
+            );
+      });
+
       return (
-        <div className='city_indication'>
-          <p>{indication.dt_txt}</p>
-          <p>{convertToCelsius(indication.main.temp)} &#186;C</p>
-          <p>wind speed: {indication.wind.speed} meter/sec</p>
+        <div key={index} className='city_forecast'>
+          {template}
         </div>
       );
-    });
-
-    return (
-      <div key={index} className='city_forecast'>
-        {template}
-      </div>
-    );
+     }
   }
 
   forecast(city, event) {

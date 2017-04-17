@@ -53,7 +53,7 @@ class CityList extends Component {
           <a href='#' onClick={this.deleteCity.bind(this, city)} className='city-block__delete' title='delete'>&#215;</a>
           <a href='#' onClick={this.forecast.bind(this, city)} className='city-block__forecast' title='more'>more/collapse</a>
         </div>
-        <CityForecast />
+        < CityForecast />
       </li>
     );
   }
@@ -61,14 +61,13 @@ class CityList extends Component {
   forecast(city, event) {
     event.preventDefault();
     // this.getRequest();
-    const curentCity = this.props.citiesStore.list.filter(x => {
-      return x.city.id === city.id
+    const curentCity = this.props.citiesStore.list.filter((item) => {
+      return item.city.id === city.id
     });
     if (curentCity.length === 0) {
-      console.log('forecast')
       this.props.incrementList(city);
     } else {
-      this.props.removeList(city);
+      this.props.noActiveList(curentCity);
     }
   }
 
@@ -121,9 +120,10 @@ const mapDispatchToProps = (dispatch) => {
           // Request new data to the API
           api.get('forecast', `?id=${city.id}`)
             .then(data => {
+                const itemObj = {active: true};
                 dispatch({
                   type: 'ADD_LIST',
-                  amount: data
+                  amount: Object.assign({}, itemObj, data)
                 });
             })
             .catch(err => {
@@ -139,6 +139,12 @@ const mapDispatchToProps = (dispatch) => {
       });
     },
 
+    noActiveList: (city) => {
+      dispatch({
+        type: 'NO_ACTIVE_LIST',
+        amount: city
+      });
+    }
   }
 }
 

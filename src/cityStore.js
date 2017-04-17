@@ -26,8 +26,14 @@ function list(state = [], action) {
       return [...state, action.amount]
     case 'REMOVE_LIST':
       return state.filter(city => {
-        console.log('REMOVE_LIST', city.city.id, action.amount.id)
         return city.city.id !== action.amount.id;
+      })
+    case 'NO_ACTIVE_LIST':
+      console.log('NO_ACTIVE_LIST', action.amount.id)
+      return state.map(city => {
+        if (city.id === action.amount.id) {
+          return city.active = false;
+        }
       })
     default:
       return state;
