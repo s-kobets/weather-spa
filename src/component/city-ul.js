@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect'
 import CityForecast from './city-forecast.js'
 import api from '../api';
 import { convertToPressure, convertToCelsius } from '../utils'
+import { citiesStore } from '../selectors'
 
 class CityList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.forecast = this.forecast.bind(this);
-  }
 
   getRequest(url) {
     api.get('forecast', url)
@@ -26,7 +23,7 @@ class CityList extends Component {
     // console.log('CityList', this.props.cities);
     return (
       <ul className='column'>
-        {this.props.citiesStore.cities.map(this.createCityRow, this)}
+        {this.props.citiesStore.map(this.createCityRow, this)}
       </ul>
     );
   }
@@ -52,27 +49,9 @@ class CityList extends Component {
           </div>
           <a href='#' onClick={this.deleteCity.bind(this, city)} className='city-block__delete' title='delete'>&#215;</a>
         </div>
-        < CityForecast more={city} onClick={this.forecast.bind(this)} />
+        < CityForecast city={city} />
       </li>
     );
-  }
-
-  forecast(city, event) {
-    console.log('click forecast')
-    event.preventDefault();
-    const curentCity = this.props.citiesStore.list.filter((item) => {
-      return item.city.id === city.id
-    });
-    if (curentCity.length === 0) {
-      console.log('if', curentCity)
-      this.props.incrementList(city);
-    } else if (curentCity[0].active) {
-      console.log('else if', curentCity)
-      this.props.ActiveList(curentCity[0], false);
-    } else {
-      console.log('else', curentCity)
-      this.props.ActiveList(curentCity[0], true);
-    }
   }
 
   deleteCity(city, event) {
@@ -84,14 +63,12 @@ class CityList extends Component {
 }
 
 CityList.propTypes = {
-  citiesStore: PropTypes.object
+  citiesStore: PropTypes.array
 }
 
-const mapStateToProps = (state) => {
-  return {
-    citiesStore: state
-  }
-}
+const mapStateToProps = createStructuredSelector({
+  citiesStore: citiesStore(),
+})
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -116,39 +93,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'REMOVE_CITY',
         amount: cityName
-      });
-    },    
-
-    incrementList: (city) => {
-      // Get the data from the cache if possible
-      if (city) {
-          // Request new data to the API
-          api.get('forecast', `?id=${city.id}`)
-            .then(data => {
-                const itemObj = {active: true};
-                dispatch({
-                  type: 'ADD_LIST',
-                  amount: Object.assign({}, itemObj, data)
-                });
-            })
-            .catch(err => {
-              alert(err.message);
-            });
-      }
-    },
-
-    removeList: (cityName) => {
-      dispatch({
-        type: 'REMOVE_LIST',
-        amount: cityName
-      });
-    },
-
-    ActiveList: (city, param) => {
-      city.active = param;
-      dispatch({
-        type: 'ACTIVE_LIST',
-        amount: city
       });
     }
   }

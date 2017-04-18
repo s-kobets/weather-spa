@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect'
+import PropTypes from 'prop-types';
+import api from '../api';
 import { convertToCelsius } from '../utils'
+import { listStore } from '../selectors'
+import { actions as listActions } from '../ducks'
 
 class CityForecast extends Component {
   constructor() {
@@ -15,7 +21,7 @@ class CityForecast extends Component {
     console.log('list', this.state.content);
     return (
       <div>
-          <a href='#' onClick={this.more.bind(this)} className='city-block__forecast' title='more'>more/collapse</a>
+          <a href='#' onClick={this.forecast.bind(this, this.props.city)} className='city-block__forecast' title='more'>more/collapse</a>
           <div className='column'>
             { this.state.content }
           </div>
@@ -23,16 +29,38 @@ class CityForecast extends Component {
     );
   }
 
-  more() {
-    this.props.onClick(this.props.more, event);
+  forecast(city, event) {
+    console.log('click forecast', )
+    event.preventDefault();
+    const curentCity = this.props.listStore.filter((item) => {
+      return item.city.id === city.id
+    });
+    if (curentCity.length === 0) {
+      console.log('if', curentCity)
+      api.get('forecast', `?id=${city.id}`)
+        .then(data => {
+          const itemObj = {active: true};
+          this.props.actions.incrementList(Object.assign({}, itemObj, data))
+        })
+        .catch(err => {
+          alert(err.message);
+        });
+    } else if (curentCity[0].active) {
+      console.log('else if', curentCity)
+      this.props.actions.activeList(curentCity[0], false);
+    } else {
+      console.log('else', curentCity)
+      this.props.actions.activeList(curentCity[0], true);
+    }
+    
     this.setState({
-      content: this.props.citiesStore.list.map(this.createCityRow, this)
+      content: this.props.listStore.map(this.createCityRow, this)
     })
   }
 
   createCityRow(city, index) {
     // console.log('createCityRow', city);
-    if (city.active && city.city.id === this.props.more.id) {
+    if (city.active && city.city.id === this.props.city.id) {
       const list = city.list.splice(0,4);
       // console.log('createCityRow', city, list);
 
@@ -56,16 +84,21 @@ class CityForecast extends Component {
       );
      }
   }
+}
 
-  forecast(city, event) {
-    event.preventDefault();
-    console.log(city);
+CityForecast.propTypes = {
+  listStore: PropTypes.array,
+  city: PropTypes.object,
+}
+
+const mapStateToProps = createStructuredSelector({
+  listStore: listStore(),
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      actions: bindActionCreators(listActions, dispatch),
   }
 }
 
-export default connect(
-  state => ({
-    citiesStore: state
-  }),
-  dispatch => ({})
-)(CityForecast);
+export default connect(mapStateToProps, mapDispatchToProps)(CityForecast);
