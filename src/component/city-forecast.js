@@ -3,20 +3,38 @@ import { connect } from 'react-redux';
 import { convertToCelsius } from '../utils'
 
 class CityForecast extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      content: '',
+    }
+  }
+
   render() {
-    console.log('list', this.props.citiesStore.list);
+    console.log('list', this.state.content);
     return (
-      <div className='column'>
-        {this.props.citiesStore.list.map(this.createCityRow, this)}
+      <div>
+          <a href='#' onClick={this.more.bind(this)} className='city-block__forecast' title='more'>more/collapse</a>
+          <div className='column'>
+            { this.state.content }
+          </div>
       </div>
     );
   }
 
+  more() {
+    this.props.onClick(this.props.more, event);
+    this.setState({
+      content: this.props.citiesStore.list.map(this.createCityRow, this)
+    })
+  }
+
   createCityRow(city, index) {
-    console.log('createCityRow', city);
-    if (city.active) {
+    // console.log('createCityRow', city);
+    if (city.active && city.city.id === this.props.more.id) {
       const list = city.list.splice(0,4);
-      console.log('createCityRow', city, list);
+      // console.log('createCityRow', city, list);
 
       const template = list.map((indication) => {
             return ( 

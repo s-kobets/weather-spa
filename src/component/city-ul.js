@@ -51,23 +51,27 @@ class CityList extends Component {
             </div>
           </div>
           <a href='#' onClick={this.deleteCity.bind(this, city)} className='city-block__delete' title='delete'>&#215;</a>
-          <a href='#' onClick={this.forecast.bind(this, city)} className='city-block__forecast' title='more'>more/collapse</a>
         </div>
-        < CityForecast />
+        < CityForecast more={city} onClick={this.forecast.bind(this)} />
       </li>
     );
   }
 
   forecast(city, event) {
+    console.log('click forecast')
     event.preventDefault();
-    // this.getRequest();
     const curentCity = this.props.citiesStore.list.filter((item) => {
       return item.city.id === city.id
     });
     if (curentCity.length === 0) {
+      console.log('if', curentCity)
       this.props.incrementList(city);
+    } else if (curentCity[0].active) {
+      console.log('else if', curentCity)
+      this.props.ActiveList(curentCity[0], false);
     } else {
-      this.props.noActiveList(curentCity);
+      console.log('else', curentCity)
+      this.props.ActiveList(curentCity[0], true);
     }
   }
 
@@ -75,6 +79,7 @@ class CityList extends Component {
     event.preventDefault();
     // console.log(city);
     this.props.removeCity(city);
+    this.props.removeList(city);
   }
 }
 
@@ -112,7 +117,7 @@ const mapDispatchToProps = (dispatch) => {
         type: 'REMOVE_CITY',
         amount: cityName
       });
-    },
+    },    
 
     incrementList: (city) => {
       // Get the data from the cache if possible
@@ -139,9 +144,10 @@ const mapDispatchToProps = (dispatch) => {
       });
     },
 
-    noActiveList: (city) => {
+    ActiveList: (city, param) => {
+      city.active = param;
       dispatch({
-        type: 'NO_ACTIVE_LIST',
+        type: 'ACTIVE_LIST',
         amount: city
       });
     }

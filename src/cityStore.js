@@ -28,12 +28,13 @@ function list(state = [], action) {
       return state.filter(city => {
         return city.city.id !== action.amount.id;
       })
-    case 'NO_ACTIVE_LIST':
-      console.log('NO_ACTIVE_LIST', action.amount.id)
+    case 'ACTIVE_LIST':
+      console.log('ACTIVE_LIST', action.amount)
       return state.map(city => {
         if (city.id === action.amount.id) {
-          return city.active = false;
+           city = action.amount;
         }
+        return city;
       })
     default:
       return state;
