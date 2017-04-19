@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import api from '../api';
+import { bindActionCreators } from 'redux';
+import { actions as cityActions } from '../ducks'
 
 class CityInput extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
   render() {
     return (
@@ -20,7 +17,7 @@ class CityInput extends Component {
         <button
           className='button button-primary'
           type='submit'
-          onClick={this.handleSubmit}>
+          onClick={this.handleSubmit.bind(this)}>
           Add city
         </button>
       </form>
@@ -29,7 +26,18 @@ class CityInput extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.addCity(this.cityInput.value);
+    const cityName = this.cityInput.value;
+    if (cityName.length !== 0) {
+      // Request new data to the API
+      api.get('weather', `?q=${cityName}`)
+        .then(data => {
+          this.props.actions.addCity(data);
+        })
+        .catch(err => {
+          console.log(err);
+          alert(err.message);
+        });
+    }
     this.cityInput.value = '';
   }
 }
@@ -40,23 +48,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addCity: (cityName) => {
-      // Get the data from the cache if possible
-      if (cityName.length !== 0) {
-          // Request new data to the API
-          api.get('weather', `?q=${cityName}`)
-            .then(data => {
-                dispatch({
-                  type: 'ADD_CITY',
-                  amount: data
-                });
-            })
-            .catch(err => {
-              console.log(err);
-              alert(err.message);
-            });
-      }
-    }
+      actions: bindActionCreators(cityActions, dispatch),
   }
 }
 

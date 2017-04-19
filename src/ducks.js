@@ -1,3 +1,17 @@
+export function addCity(city) {
+    return {
+        type: 'ADD_CITY',
+        amount: city,
+    }
+}
+
+export function removeCity(city) {
+    return {
+        type: 'REMOVE_CITY',
+        amount: city
+    }
+}
+
 export function incrementList(city) {
     return {
         type: 'ADD_LIST',
@@ -21,6 +35,8 @@ export function activeList(city, param) {
 }
 
 export const actions = {
+  addCity,
+  removeCity,
   incrementList,
   removeList,
   activeList,

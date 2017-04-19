@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect'
 import CityForecast from './city-forecast.js'
-import api from '../api';
 import { convertToPressure, convertToCelsius } from '../utils'
 import { citiesStore } from '../selectors'
+import { actions as cityActions } from '../ducks'
 
 class CityList extends Component {
-
-  getRequest(url) {
-    api.get('forecast', url)
-      .then(data => {
-        this.props.onCheck(data)
-      })
-      .catch(err => {
-        alert(err.message);
-      });
-  }
 
   render() {
     // console.log('CityList', this.props.cities);
@@ -57,8 +48,8 @@ class CityList extends Component {
   deleteCity(city, event) {
     event.preventDefault();
     // console.log(city);
-    this.props.removeCity(city);
-    this.props.removeList(city);
+    this.props.actions.removeCity(city);
+    this.props.actions.removeList(city);
   }
 }
 
@@ -72,29 +63,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addCity: (cityName) => {
-      // Get the data from the cache if possible
-      if (cityName.length !== 0) {
-          // Request new data to the API
-          api.get('weather', `?q=${cityName}`)
-            .then(data => {
-                dispatch({
-                  type: 'ADD_CITY',
-                  amount: data
-                });
-            })
-            .catch(err => {
-              alert(err.message);
-            });
-      }
-    },
-
-    removeCity: (cityName) => {
-      dispatch({
-        type: 'REMOVE_CITY',
-        amount: cityName
-      });
-    }
+      actions: bindActionCreators(cityActions, dispatch),
   }
 }
 

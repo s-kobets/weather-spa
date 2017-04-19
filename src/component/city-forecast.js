@@ -30,7 +30,6 @@ class CityForecast extends Component {
   }
 
   forecast(city, event) {
-    console.log('click forecast', )
     event.preventDefault();
     const curentCity = this.props.listStore.filter((item) => {
       return item.city.id === city.id
