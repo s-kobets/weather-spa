@@ -23,7 +23,7 @@ class CityForecast extends Component {
       <div>
           <a href='#' onClick={this.forecast.bind(this, this.props.city)} className='city-block__forecast' title='more'>more/collapse</a>
           <div className='column'>
-            { this.state.content }
+            {this.props.listStore.map(this.createCityRow, this)}
           </div>
       </div>
     );
@@ -52,13 +52,14 @@ class CityForecast extends Component {
       this.props.actions.activeList(curentCity[0], true);
     }
     
-    this.setState({
-      content: this.props.listStore.map(this.createCityRow, this)
-    })
+    // this.setState({
+    //   content: 
+    // })
+
+    console.log(123123123123, this.state.content)
   }
 
   createCityRow(city, index) {
-    // console.log('createCityRow', city);
     if (city.active && city.city.id === this.props.city.id) {
       const list = city.list.splice(0,4);
       // console.log('createCityRow', city, list);
