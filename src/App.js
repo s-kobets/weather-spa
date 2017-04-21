@@ -33,7 +33,11 @@ class App extends Component {
   }
 
   getRequest(url) {
-    api.get('weather', url)
+    const request = {
+      type: 'weather',
+      settings: url,
+    }
+    api.get(request)
       .then(data => {
           this.increment(data);
       })

@@ -35,8 +35,12 @@ class CityForecast extends Component {
       return item.city.id === city.id
     });
     if (curentCity.length === 0) {
+      const request = {
+        type: 'forecast',
+        settings: `?id=${city.id}`,
+      }
       console.log('if', curentCity)
-      api.get('forecast', `?id=${city.id}`)
+      api.get(request)
         .then(data => {
           const itemObj = {active: true};
           this.props.actions.incrementList(Object.assign({}, itemObj, data))
@@ -51,12 +55,6 @@ class CityForecast extends Component {
       console.log('else', curentCity)
       this.props.actions.activeList(curentCity[0], true);
     }
-    
-    // this.setState({
-    //   content: 
-    // })
-
-    console.log(123123123123, this.state.content)
   }
 
   createCityRow(city, index) {

@@ -10,7 +10,8 @@
     "prop-types": "^15.5.8",
     "react": "15.5.4",
     "react-dom": "^15.4.2",
-    "redux-logger": "^3.0.1"
+    "redux-logger": "^3.0.1",
+    "redux-saga": "^0.14.7"
   },
   "devDependencies": {
     "http-client": "^4.3.1",
@@ -18,7 +19,6 @@
     "react-scripts": "0.9.5",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.0",
-    "redux-thunk": "^2.2.0",
     "reselect": "^3.0.0",
     "whatwg-fetch": "^2.0.3"
   },

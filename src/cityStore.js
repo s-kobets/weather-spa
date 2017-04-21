@@ -1,11 +1,24 @@
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
 import { loadState, saveState } from './localStorage';
 import logger from 'redux-logger'
+import createSagaMiddleware from 'redux-saga'
 
-const middleware = applyMiddleware(logger, thunk);
+import { mySagaCity } from './sagas'
+// создаем saga мидлвар
+const sagaMiddleware = createSagaMiddleware();
+
+const middleware = applyMiddleware(logger, sagaMiddleware);
 const persistedState = loadState();
+
+function nameCity(state='', action) {
+  switch (action.type) {
+    case 'FETCH_CITY':
+      return action.amount
+    default:
+      return state;
+  }
+}
 
 function cities(state = [], action) {
   switch (action.type) {
@@ -42,11 +55,16 @@ function list(state = [], action) {
 }
 
 const rootReducer = combineReducers({
+  nameCity,
   cities,
   list
 });
 
+
 const cityStore = createStore(rootReducer, persistedState, composeWithDevTools(middleware));
+
+// запускаем сагу
+sagaMiddleware.run(mySagaCity)
 
 cityStore.subscribe(() => {
   saveState(cityStore.getState());

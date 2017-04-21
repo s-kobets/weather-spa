@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import api from '../api';
 import { bindActionCreators } from 'redux';
 import { actions as cityActions } from '../ducks'
 
@@ -30,15 +29,7 @@ class CityInput extends Component {
 
     if (cityName.length !== 0) {
       // Request new data to the API
-      api.get('weather', `?q=${cityName}`)
-        .then(data => {
-          console.log('then', data)
-          this.props.actions.addCity(data);
-        })
-        .catch(err => {
-          console.log('error', err);
-          alert(err.message);
-        });
+      this.props.actions.fetchAddCity(cityName);
     }
     this.cityInput.value = '';
   }

@@ -11,14 +11,14 @@ const fetch = createFetch(
 
 //9deb1490da7395429f58c27e7cf9746c
 const api = {
-  get: function(type, settings) {
-    return fetch(`${type}${settings}${apiUrl}`)
+  get: function(request) {
+    return fetch(`${request.type}${request.settings}${apiUrl}`)
       .then(result => {
-        const json = result.response;
         if (result.status >= 200 && result.status < 300) {
-          return json;
+          return result;
         } else {
-          return json.then(Promise.reject.bind(Promise));
+          return Promise.reject(result)
+          // return json.then(Promise.reject.bind(Promise));
         }
       });
   }

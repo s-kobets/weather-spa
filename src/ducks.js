@@ -1,3 +1,10 @@
+export function fetchAddCity(name) {
+    return {
+        type: 'FETCH_CITY',
+        amount: name
+    }
+}
+
 export function addCity(city) {
     return {
         type: 'ADD_CITY',
@@ -35,6 +42,7 @@ export function activeList(city, param) {
 }
 
 export const actions = {
+  fetchAddCity,
   addCity,
   removeCity,
   incrementList,
