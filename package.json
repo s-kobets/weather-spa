@@ -10,6 +10,7 @@
     "prop-types": "^15.5.8",
     "react": "15.5.4",
     "react-dom": "^15.4.2",
+    "redux-form": "^6.6.3",
     "redux-logger": "^3.0.1",
     "redux-saga": "^0.14.7"
   },

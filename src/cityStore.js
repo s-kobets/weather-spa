@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { loadState, saveState } from './localStorage';
 import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
+import { reducer as form } from 'redux-form'
 
 import { mySagaCity } from './sagas'
 // создаем saga мидлвар
@@ -66,6 +67,7 @@ function list(state = [], action) {
 }
 
 const rootReducer = combineReducers({
+  form,
   moreDetailsCity,
   nameCity,
   cities,

@@ -13,7 +13,7 @@ export function* fetchCity(action) {
   } else {
       console.log('error', error);
       alert(error);
-  }  
+  }
 }
 
 export function* moreDetailsCity(action) {
@@ -33,6 +33,8 @@ export function* moreDetailsCity(action) {
 }
 
 export function* mySagaCity() {
-  yield takeLatest('FETCH_CITY', fetchCity);
-  yield takeLatest('MORE_CITY', moreDetailsCity);
+  yield [
+    takeLatest('FETCH_CITY', fetchCity),
+    takeLatest('MORE_CITY', moreDetailsCity)
+  ]
 }
