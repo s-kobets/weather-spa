@@ -5,6 +5,13 @@ export function fetchAddCity(name) {
     }
 }
 
+export function moreDetailsCity(name) {
+    return {
+        type: 'MORE_CITY',
+        amount: name
+    }
+}
+
 export function addCity(city) {
     return {
         type: 'ADD_CITY',
@@ -42,6 +49,7 @@ export function activeList(city, param) {
 }
 
 export const actions = {
+  moreDetailsCity,
   fetchAddCity,
   addCity,
   removeCity,

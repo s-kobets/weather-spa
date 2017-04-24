@@ -15,6 +15,17 @@ function nameCity(state='', action) {
   switch (action.type) {
     case 'FETCH_CITY':
       return action.amount
+    case 'MORE_CITY':
+      return action.amount
+    default:
+      return state;
+  }
+}
+
+function moreDetailsCity(state='', action) {
+  switch (action.type) {
+    case 'MORE_CITY':
+      return action.amount
     default:
       return state;
   }
@@ -55,6 +66,7 @@ function list(state = [], action) {
 }
 
 const rootReducer = combineReducers({
+  moreDetailsCity,
   nameCity,
   cities,
   list

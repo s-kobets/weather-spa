@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect'
 import PropTypes from 'prop-types';
-import api from '../api';
 import { convertToCelsius } from '../utils'
 import { listStore } from '../selectors'
 import { actions as listActions } from '../ducks'
@@ -35,24 +34,10 @@ class CityForecast extends Component {
       return item.city.id === city.id
     });
     if (curentCity.length === 0) {
-      const request = {
-        type: 'forecast',
-        settings: `?id=${city.id}`,
-      }
-      console.log('if', curentCity)
-      api.get(request)
-        .then(data => {
-          const itemObj = {active: true};
-          this.props.actions.incrementList(Object.assign({}, itemObj, data))
-        })
-        .catch(err => {
-          alert(err.message);
-        });
+      this.props.actions.moreDetailsCity(city.id);
     } else if (curentCity[0].active) {
-      console.log('else if', curentCity)
       this.props.actions.activeList(curentCity[0], false);
     } else {
-      console.log('else', curentCity)
       this.props.actions.activeList(curentCity[0], true);
     }
   }
