@@ -16,6 +16,20 @@ export function* fetchCity(action) {
   }
 }
 
+export function* locationCity(action) {
+  const argument = {
+    type: 'weather', 
+    settings: `?lat=${action.amount.lat}&lon=${action.amount.log}`,
+  }
+  const { response, error } = yield call(api.get, argument)
+  if (response) {
+      yield put(addCity(response))
+  } else {
+      console.log('error', error);
+      alert(error);
+  }
+}
+
 export function* moreDetailsCity(action) {
   const argument = {
     type: 'forecast', 
@@ -35,6 +49,7 @@ export function* moreDetailsCity(action) {
 export function* mySagaCity() {
   yield [
     takeLatest('FETCH_CITY', fetchCity),
-    takeLatest('MORE_CITY', moreDetailsCity)
+    takeLatest('MORE_CITY', moreDetailsCity),
+    takeLatest('LOAD_CITY', locationCity)
   ]
 }

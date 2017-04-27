@@ -1,15 +1,20 @@
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { loadState, saveState } from './localStorage';
-import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
 import { reducer as form } from 'redux-form'
 
 import { mySagaCity } from './sagas'
 // создаем saga мидлвар
 const sagaMiddleware = createSagaMiddleware();
+let middleware;
 
-const middleware = applyMiddleware(logger, sagaMiddleware);
+if (process.env.NODE_ENV !== 'production') {
+  const { logger } = require('redux-logger')
+  middleware = applyMiddleware(logger, sagaMiddleware);
+} else {
+  middleware = applyMiddleware(sagaMiddleware);
+}
 const persistedState = loadState();
 
 function nameCity(state='', action) {

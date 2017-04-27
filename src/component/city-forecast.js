@@ -17,7 +17,6 @@ class CityForecast extends Component {
   }
 
   render() {
-    console.log('list', this.state.content);
     return (
       <div>
           <a href='#' onClick={this.forecast.bind(this, this.props.city)} className='city-block__forecast' title='more'>more/collapse</a>

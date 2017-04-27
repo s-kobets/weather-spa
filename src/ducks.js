@@ -5,6 +5,13 @@ export function fetchAddCity(name) {
     }
 }
 
+export function loadAddCity(coordinates) {
+    return {
+        type: 'LOAD_CITY',
+        amount: coordinates
+    }
+}
+
 export function moreDetailsCity(name) {
     return {
         type: 'MORE_CITY',
@@ -49,6 +56,7 @@ export function activeList(city, param) {
 }
 
 export const actions = {
+  loadAddCity,
   moreDetailsCity,
   fetchAddCity,
   addCity,
