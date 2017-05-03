@@ -42,9 +42,9 @@ class CityForecast extends Component {
   }
 
   createCityRow(city, index) {
+    // console.log('createCityRow', city, city.city.id, this.props.city.id, city.list);
     if (city.active && city.city.id === this.props.city.id) {
-      const list = city.list.splice(0,4);
-      // console.log('createCityRow', city, list);
+      const list = city.list.slice(0,4);
 
       const template = list.map((indication) => {
             return ( 

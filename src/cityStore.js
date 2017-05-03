@@ -59,10 +59,10 @@ function list(state = [], action) {
         return city.city.id !== action.amount.id;
       })
     case 'ACTIVE_LIST':
-      console.log('ACTIVE_LIST', action.amount)
+      // console.log('ACTIVE_LIST', action.amount)
       return state.map(city => {
         if (city.id === action.amount.id) {
-           city = action.amount;
+           city.action = action.amount.action;
         }
         return city;
       })
