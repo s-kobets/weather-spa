@@ -10,7 +10,7 @@ class CityInput extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <form className='row city-input' onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <form className='row city-input' onSubmit={handleSubmit(this.handleFormSubmit)}>
         <Field
           name='cityName'
           component='input'
@@ -28,7 +28,7 @@ class CityInput extends Component {
     );
   }
 
-  handleFormSubmit(formProps) {
+  handleFormSubmit = (formProps) => {
     const cityName = formProps.cityName;
     if (cityName && cityName.length !== 0) {
       // Request new data to the API
