@@ -1,5 +1,8 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -13,8 +16,27 @@
   color: white;
 }
 
+.App-content {
+  flex: 1;
+}
+
 .App-intro {
   font-size: large;
+}
+
+.App-footer {
+  padding-bottom: 1.65em;
+  margin-bottom: -1.65em;
+  background-color: #191f21;
+  color: #40484a;
+}
+
+.App-footer a {
+  margin: 0 0.5em;
+}
+
+.App-footer a:hover {
+  color: #fff;
 }
 
 @keyframes App-logo-spin {

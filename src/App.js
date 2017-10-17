@@ -38,11 +38,30 @@ class App extends Component {
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
           </div>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-          <CityInput />
-          <CityList />
+
+          <div className="App-content">
+            <p className="App-intro">
+              To get started, edit <code>src/App.js</code> and save to reload.
+            </p>
+            <CityInput />
+            <CityList />
+          </div>
+          
+          <div className="App-footer">
+            <p>Copyright 2017 Kobets - Built With Passion</p>
+            <a href="//twitter.com/s_kobets617" className="none-text-decoration" target="_blank">
+              <span className="fa-stack">
+                <i className="fa fa-circle-o fa-stack-2x"></i>
+                <i className="fa fa-twitter fa-stack-1x"></i>
+              </span>
+            </a>
+            <a href="//github.com/s-kobets" className="none-text-decoration">
+              <span className="fa-stack">
+                <i className="fa fa-circle-o fa-stack-2x"></i>
+                <i className="fa fa-github fa-stack-1x"></i>
+              </span>
+            </a>
+          </div>
         </div>
       </Provider>
     );
