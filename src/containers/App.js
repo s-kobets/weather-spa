@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import logo from './logo.svg';
-import './App.css';
+import logo from '../assets/img/logo.svg';
+import '../assets/css/App.css';
 
-import CityInput from './component/search-input';
-import CityList from './component/city-ul';
-import cityStore from './cityStore';
-import { actions } from './ducks'
+import CityInput from '../components/search-input';
+import CityList from '../components/city-ul';
+import cityStore from '../store/cityStore';
+import { actions } from '../store/ducks'
 
 class App extends Component {
 

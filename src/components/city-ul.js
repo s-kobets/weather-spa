@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect'
 import CityForecast from './city-forecast.js'
 import { convertToPressure, convertToCelsius } from '../utils'
-import { citiesStore } from '../selectors'
-import { actions as cityActions } from '../ducks'
+import { citiesStore } from '../store/selectors'
+import { actions as cityActions } from '../store/ducks'
 
 class CityList extends Component {
 

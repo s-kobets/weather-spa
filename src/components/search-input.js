@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form'
-import { actions as cityActions } from '../ducks'
+import { actions as cityActions } from '../store/ducks'
 
 class CityInput extends Component {
 

@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect'
 import PropTypes from 'prop-types';
 import { convertToCelsius } from '../utils'
-import { listStore } from '../selectors'
-import { actions as listActions } from '../ducks'
+import { listStore } from '../store/selectors'
+import { actions as listActions } from '../store/ducks'
 
 class CityForecast extends Component {
   constructor() {
