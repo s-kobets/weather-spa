@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { createStructuredSelector } from 'reselect'
-import CityForecast from './city-forecast.js'
-import { convertToPressure, convertToCelsius } from '../utils'
-import { citiesStore } from '../store/selectors'
-import { actions as cityActions } from '../store/ducks'
+import { createStructuredSelector } from 'reselect';
+import CityForecast from './city-forecast.js';
+import { convertToPressure, convertToCelsius } from '../utils';
+import { citiesStore } from '../store/selectors';
+import { actions as cityActions } from '../store/ducks';
 
 class CityList extends Component {
-
   render() {
     // console.log('CityList', this.props.cities);
     return (
-      <ul className='column'>
+      <ul className="column">
         {this.props.citiesStore.map(this.createCityRow, this)}
       </ul>
     );
@@ -24,10 +23,17 @@ class CityList extends Component {
 
     return (
       <li key={city.id}>
-        <div className='city'>
-          <div className='city-block'>
-            <img src={'http://openweathermap.org/img/w/' + city.weather[0].icon + '.png'} alt={city.weather[0].description} />
-            <div className='city-block__description'>
+        <div className="city">
+          <div className="city-block">
+            <img
+              src={
+                'http://openweathermap.org/img/w/' +
+                city.weather[0].icon +
+                '.png'
+              }
+              alt={city.weather[0].description}
+            />
+            <div className="city-block__description">
               <strong> {city.name} </strong>
               <ul>
                 <li>{city.weather[0].description}</li>
@@ -38,9 +44,16 @@ class CityList extends Component {
               </ul>
             </div>
           </div>
-          <a href='#' onClick={this.deleteCity.bind(this, city)} className='city-block__delete' title='delete'>&#215;</a>
+          <a
+            href="#"
+            onClick={this.deleteCity.bind(this, city)}
+            className="city-block__delete"
+            title="delete"
+          >
+            &#215;
+          </a>
         </div>
-        < CityForecast city={city} />
+        <CityForecast city={city} />
       </li>
     );
   }
@@ -55,16 +68,19 @@ class CityList extends Component {
 
 CityList.propTypes = {
   citiesStore: PropTypes.array
-}
+};
 
 const mapStateToProps = createStructuredSelector({
-  citiesStore: citiesStore(),
-})
+  citiesStore: citiesStore()
+});
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-      actions: bindActionCreators(cityActions, dispatch),
-  }
-}
+    actions: bindActionCreators(cityActions, dispatch)
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CityList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CityList);
