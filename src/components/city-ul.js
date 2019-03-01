@@ -44,14 +44,13 @@ class CityList extends Component {
               </ul>
             </div>
           </div>
-          <a
-            href="#"
+          <button
             onClick={this.deleteCity.bind(this, city)}
             className="city-block__delete"
             title="delete"
           >
             &#215;
-          </a>
+          </button>
         </div>
         <CityForecast city={city} />
       </li>
@@ -80,7 +79,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CityList);
+export default connect(mapStateToProps, mapDispatchToProps)(CityList);

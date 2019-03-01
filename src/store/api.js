@@ -1,5 +1,5 @@
 import { createFetch, base, method, parse, accept } from 'http-client';
-const rootUrl = 'http://api.openweathermap.org/data/2.5/';
+const rootUrl = 'https://api.openweathermap.org/data/2.5/';
 const apiUrl = '&appid=13bb07540b37ac984d9c9bd027c20637';
 
 const fetch = createFetch(

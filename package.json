@@ -1,22 +1,21 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "weacher-spa",
+  "version": "1.0.0",
   "private": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:s-kobets/weacher-spa.git"
   },
   "dependencies": {
-    "font-awesome": "^4.7.0",
-    "gh-pages": "^2.0.0",
     "prop-types": "^15.5.8",
-    "react": "15.5.4",
-    "react-dom": "^15.4.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "redux-form": "^6.6.3",
     "redux-logger": "^3.0.1",
     "redux-saga": "^0.14.7"
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "http-client": "^4.3.1",
     "react-redux": "^5.0.3",
     "react-scripts": "^1.1.0",
@@ -30,8 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build"
+    "deploy": "gh-pages -d build"
   },
   "homepage": "https://s-kobets.github.io/weacher-spa"
 }

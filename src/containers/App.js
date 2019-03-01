@@ -6,10 +6,9 @@ import '../assets/css/App.css';
 import CityInput from '../components/search-input';
 import CityList from '../components/city-ul';
 import cityStore from '../store/cityStore';
-import { actions } from '../store/ducks'
+import { actions } from '../store/ducks';
 
 class App extends Component {
-
   componentDidMount() {
     if (localStorage.getItem('cities')) {
       if (JSON.parse(localStorage.getItem('cities')).cities.length === 0) {
@@ -21,12 +20,12 @@ class App extends Component {
 
   location() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            // Текущие координаты.
-            const lat = position.coords.latitude;
-            const log = position.coords.longitude;
-            cityStore.dispatch(actions.loadAddCity({lat, log}));
-        });
+      navigator.geolocation.getCurrentPosition(position => {
+        // Текущие координаты.
+        const lat = position.coords.latitude;
+        const log = position.coords.longitude;
+        cityStore.dispatch(actions.loadAddCity({ lat, log }));
+      });
     }
   }
 
@@ -46,19 +45,24 @@ class App extends Component {
             <CityInput />
             <CityList />
           </div>
-          
+
           <div className="App-footer">
             <p>Copyright 2017 Kobets - Built With Passion</p>
-            <a href="//twitter.com/s_kobets617" className="none-text-decoration" target="_blank">
+            <a
+              href="//twitter.com/s_kobets617"
+              className="none-text-decoration"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span className="fa-stack">
-                <i className="fa fa-circle-o fa-stack-2x"></i>
-                <i className="fa fa-twitter fa-stack-1x"></i>
+                <i className="fa fa-circle-o fa-stack-2x" />
+                <i className="fa fa-twitter fa-stack-1x" />
               </span>
             </a>
             <a href="//github.com/s-kobets" className="none-text-decoration">
               <span className="fa-stack">
-                <i className="fa fa-circle-o fa-stack-2x"></i>
-                <i className="fa fa-github fa-stack-1x"></i>
+                <i className="fa fa-circle-o fa-stack-2x" />
+                <i className="fa fa-github fa-stack-1x" />
               </span>
             </a>
           </div>
