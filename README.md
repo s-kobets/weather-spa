@@ -1,4 +1,4 @@
-Due Mixed Content the project is deployed: https://s-kobets.github.io/weacher-spa/
+Due Mixed Content the project is deployed: https://s-kobets.github.io/weather-spa/
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
